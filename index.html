@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>יומן דרך | הדרך לרפואה - אביחי</title>
+  
+  <!-- Google Fonts: Assistant & Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN with Typography Plugin -->
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Assistant', 'Rubik', 'sans-serif'],
+            heading: ['Rubik', 'Assistant', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              900: '#134e4a',
+            },
+            accent: {
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Assistant', sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+    
+    /* 3D Flip Card Effect */
+    .flip-card {
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Rainbow Animated Text */
+    @keyframes rainbow-flow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    @keyframes rainbow-pulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.7));
+      }
+      50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.9));
+      }
+    }
+    .rainbow-text {
+      background: linear-gradient(
+        90deg,
+        #f43f5e,
+        #f97316,
+        #eab308,
+        #10b981,
+        #06b6d4,
+        #8b5cf6,
+        #ec4899,
+        #f43f5e
+      );
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow-flow 3.5s ease infinite, rainbow-pulse 1.8s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-200 selection:text-teal-900">
+
+  <!-- Reading Progress Bar -->
+  <div id="progress-bar" class="fixed top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-teal-500 to-emerald-400 z-50 transition-all duration-150 w-0"></div>
+
+  <!-- Header / Navigation -->
+  <header class="bg-white border-b border-slate-200/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-center">
+      <div class="inline-flex flex-col items-center bg-slate-50 border border-slate-200/90 px-2.5 py-1.5 rounded-xl shadow-xs leading-none">
+        <!-- Top emoji border -->
+        <div class="flex items-center justify-between w-full text-xs sm:text-sm leading-none select-none">
+          <span>🩺</span><span>🧪</span><span>💊</span><span>🧬</span><span>🫀</span><span>💉</span><span>🔬</span><span>🩻</span>
+        </div>
+        <!-- Middle row: side emojis + title -->
+        <div class="flex items-center justify-center gap-1 my-0.5">
+          <span class="text-xs sm:text-sm leading-none select-none">🌡️🩺</span>
+          <span class="font-heading font-black text-slate-900 text-base sm:text-lg leading-none px-1 whitespace-nowrap">יומן דרך</span>
+          <span class="text-xs sm:text-sm leading-none select-none">🧬💉</span>
+        </div>
+        <!-- Bottom emoji border -->
+        <div class="flex items-center justify-between w-full text-xs sm:text-sm leading-none select-none">
+          <span>🩻</span><span>🔬</span><span>💉</span><span>🫀</span><span>🧬</span><span>💊</span><span>🧪</span><span>🩺</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Article Content -->
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 pt-10 pb-16">
+    
+    <article class="space-y-8 text-base sm:text-lg text-slate-700 leading-relaxed">
+      
+
+      <!-- Intro Greeting -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <p class="font-medium text-slate-900 text-lg sm:text-xl mb-4">
+          אהלן חברים, שמי אביחי 👋
+        </p>
+        <p>
+          חשבתי שזה יהיה נחמד לסגור מעגל עם שנה מעניינת שעברתי בין יולי 2025 ליולי 2026, עם דגש רב על היבט הקבלה ללימודי רפואה בישראל (המסלול הארבע-שנתי).
+        </p>
+        <p class="mt-4">
+          הסיבה שאני קורא לזה <strong class="text-slate-900 font-bold">״יומן דרך״</strong> היא כי זה משהו שאני מנסה למסמר לעצמי בראש – להיות רופא מומחה (ואני מניח שרוב מי שיקרא את זה שואף להכשרה הזו) זה סיפור של <strong>10 שנים +-</strong>.
+        </p>
+        <p class="mt-4">
+          לכן לדעתי יותר נכון ונבון למסגר את התהליך הזה בראש כדרך: משהו רציף אך גמיש, פלואידי, שיכול להשתנות (ורצוי גם, שכן אם הדרך הייתה סטטית... כנראה שהיא לא הייתה ממש מעניינת או מועילה).
+        </p>
+      </div>
+
+      <!-- Quick skip Callout -->
+      <div id="skip-box" class="bg-amber-50/90 border-r-4 border-amber-500 p-5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h3 class="font-bold text-amber-950 text-base sm:text-lg">רוצים לצלול ישר לטקטיקה?</h3>
+          <p class="text-sm text-amber-900/80 mt-0.5">במקרה שלא מעניין אתכם יומן הדרך ובא לכם לדלג ישר לבשר ולטיפים:</p>
+        </div>
+        <a href="#the-juice" class="whitespace-nowrap px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg shadow-sm transition">
+          שחרר אותנו אבא, איפה הג׳וס!? 🎃
+        </a>
+      </div>
+
+      <!-- The Big Revelation: Critical Thinking -->
+      <section class="pt-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-100 text-teal-800 font-bold text-lg">💡</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">הסקופ הכי חשוב: חשיבה ביקורתית</h2>
+        </div>
+
+        <p>
+          אני אתחיל מהסוף ואתן את הסקופ הכי חשוב: הדבר הכי חשוב שלמדתי והפנמתי בשנה האחרונה הוא שהכישור הכי חיוני וקריטי לחיים טובים ובפרט לקבלה לרפואה הוא <span class="bg-teal-100/80 px-2 py-0.5 rounded font-black text-teal-950">חשיבה ביקורתית</span>.
+        </p>
+
+        <p class="mt-4 font-semibold text-slate-800">
+          אם תיקחו איתכם דבר אחד מהחפירה שעומדת לבוא, הלוואי שזה יהיה זה.
+        </p>
+
+        <!-- Hillel Quote Box -->
+        <blockquote class="my-6 p-5 sm:p-6 bg-slate-100/80 rounded-2xl border border-slate-200 text-slate-700 italic relative">
+          <span class="text-4xl text-slate-300 absolute top-2 right-4 font-serif">״</span>
+          <p class="relative z-10 pr-6">
+            למה אני חושב שחשיבה ביקורתית (או קריטית) זה הדבר הכי חשוב שיש? הגעתי למסקנה שזה המונח או התהליך הכי בסיסי שמזקק ומכיל בתוכו את כל מה שצריך לדעת כדי להצליח בחיים, ובפרט בקבלה לרפואה. 
+            זה קצת מזכיר לי את הסיפור עם הלל במסכת שבת, שביקשו ממנו ללמוד ״את כל התורה על רגל אחת״ והוא השיב:
+            <br>
+            <span class="font-bold not-italic text-slate-900 block mt-2">
+              ״מה ששנוא עליך לא תעשה לחברך, זוהי כל התורה כולה, והשאר רק פירוש שלה – לך תלמד״.
+            </span>
+          </p>
+        </blockquote>
+
+        <p>
+          אני חושב שבנאדם שחושב ביקורתית טומן בחובו את הפוטנציאל להבין ולפעול בצורה אינטואיטיבית ככה שהוא יחיה חיים טובים בעצמו ועם הסובבים אותו. וגם אם הוא לא מבין או פועל כמו שהוא היה רוצה כרגע, יש לו את הכלים לפעול כדי שזה כן יהיה המצב.
+        </p>
+        <p class="mt-3 text-sm text-slate-500 italic">
+          (זה הזמן לציין שאני לא מתיימר לטעון שזו הדרך האופטימלית לפעול או לחיות לפיה, זו סך הכל החוויה שלי שאני משתף. ״ואהבת לרעך כמוך״ וכ׳, אגב אני לא בנאדם דתי 🤡).
+        </p>
+      </section>
+
+      <!-- Background Section -->
+      <section class="pt-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-200 text-slate-800 font-bold text-lg">👤</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">הרקע שלי: בלי שבריר של ביולוגיה</h2>
+        </div>
+
+        <p>
+          אני אנחית על הקרקע את הנאמר עד כה ביחס לקבלה ללימודי רפואה: ללמוד איך ללמוד היה לי סופר חשוב, כי לא למדתי שבריר של ביולוגיה או כימיה בחיים וזה מאוד הקשה עליי בהתחלה. בסוף, מה שעשיתי כדי לעשות לעצמי קצת ראמפ-אפ ולהיכנס לעניינים זה להיעזר בפלייליסט המעולה הבא:
+        </p>
+
+        <!-- Chemistry Recommendation Link Box -->
+        <div class="my-6 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-1">המלצת זהב לחסרי רקע</div>
+            <div class="font-bold text-slate-900 text-base sm:text-lg">מבוא לכימיה – ד״ר ענבל צרפתי-ברעד</div>
+            <p class="text-sm text-slate-600 mt-1">פלייליסט יוטיוב פנומנלי להתחלה. המלצה שלי: התמקדו בעקרונות ופחות בחישובים המורכבים.</p>
+          </div>
+          <a href="https://www.youtube.com/watch?v=hLM4XP6FI2E&list=PLsl4YmQLnwAom91zsrD7B16A476C340MN" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition whitespace-nowrap">
+            <span>צפייה ביוטיוב</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- The Core Courses Stage -->
+      <section class="pt-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-100 text-teal-800 font-bold text-lg">🧪</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">סמסטר הקיץ בהדסה: סופי, ברכי וטבילת האש</h2>
+        </div>
+
+        <p>
+          סביבות מאי-יוני 2025 תסביך ה״אני רוצה להיות רופא״ נכנס להילוך טורבו אצלי, וביררתי מה מי מו. הגעתי למסקנה עם עצמי שאני רוצה לגעת בחיים של אנשים, וההשלכות של תעסוקה כרופא הרגישו לי הדבר הנכון לעשות – לא רק בגלל העבודה עם אנשים, אלא גם בגלל העומק שיש בתחום הזה לצד האנושיות. גיליתי בעצמי תשוקה רבה להשפיע על חיים של אחרים ולהיות <em>life-long learner</em> בתחום שאני מרגיש שאני יכול לצמוח ולהתפתח בו, והחלטתי שאני מוכן לעמוד בקשיים שההכשרה מביאה איתה. משם עברתי לפרקטיקה: הגעתי למסקנה שאולי באונ׳ ת״א אותה אני מכיר ואוהב אפשר להשלים את קורסי הליבה, אך באותה תקופה הם דרשו מלא קדמים – ובמקום להשלים 6 קורסים (סטטיסטיקה כבר למדתי בתואר הקודם), זה הסתכם לבערך כפול מזה.
+        </p>
+        
+        <p class="mt-4">
+          אחרי שהתבאסתי שפספסתי את המועד להירשם לקורסי הליבה באריאל כי הבנתי שיותר קל לעבור שם את המבחנים, ניגבתי את הדמעות ונרשמתי למה שהיה זמין בסמסטר הקיץ בהדסה: <strong>ביולוגיה מולקולרית עם ברכי</strong> ו<strong>פיזיולוגיה עם סופי</strong>.
+        </p>
+
+        <div class="my-5 bg-teal-50 border border-teal-200 p-4 rounded-xl text-teal-900 text-sm sm:text-base">
+          <strong>מה שנוסע מסביב חוזר מסביב:</strong> כן כן, סופי ואילנה עם מבחנים קשוחים. אבל חברים – לא סתם המון סטודנטים טוענים (אפילו שחלקם באנונימיות קולחת בפייסבוק) שזה עזר להם בידע. אני לגמרי חבר במניין הזה.
+        </div>
+
+        <p>
+          זה ביאס אותי בהתחלה כי הבנתי שההמלצה הרווחת היא להתחיל עם ביוכימיה וביותא, אבל החלטתי שכוסומו – אני מתחיל וזהו, אין זמן לרעשי רקע, צריך לזרום. ותודה לאל שעשיתי את זה.
+          היום אני חושב שבהינתן האפשרות כנראה עדיף להתחיל מביוכימיה וביותא, אבל אם התנאים לא מאפשרים – הכל טוב, זרמו!
+        </p>
+
+        <p class="mt-4">
+          את המשך הקורסים לקחתי ככה: <strong>ביוכימיה עם סופי</strong> ו<strong>ביותא עם אילנה</strong> בסמסטר א׳ כי זה הרגיש לי הכי קוהרנטי לסיים עם הקורסים שבסילבוס של הידע לפני הידע, ו<strong>מיקרוביולוגיה עם אילנה כספי</strong> ו<strong>גנטיקה עם הדר</strong>.
+        </p>
+
+        <p class="mt-4">
+          ביותא זה מבחן מלחמה אין ספק, וביוכימיה מלבד כל מיני טרלולי סוכרים שסופי אוהבת (ואני אישית מאוד אהבתי כי זה חיזק לי את הידע ואת האינטואיציה בנושא) הידע מוכל לחלוטין בסילבוס של הידע ושווה מאוד לדעת טוב את החומר בקורס (ולדעת לחשב מטען לפפטידים בלי להתחרפן או להתבלבל בזה!!!). מיקרוביולוגיה וגנטיקה הרבה יותר סבבה.
+        </p>
+      </section>
+
+      <!-- Study Philosophy & Mindset -->
+      <section class="pt-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-bold text-lg">⚡</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">האויב הכי גדול של הטוב הוא המצוין</h2>
+        </div>
+
+        <p>
+          טוב התחיל הקורס, הכרתי אנשים מהממים איתם אני בקשר עד עצם היום הזה, וניסיתי להיות הסטודנט הכי טוב שאני יכול. חזרתי על ההרצאות, ובעיקר ציירתי הרבה גרפים מהסוג שביוטיוב קוראים להם <em>Mind mapping</em> (אצלי זה היה הרבה יותר ורבוסי, אבל עדיין בכיוון הנכון).
+        </p>
+
+        <div class="my-6 p-6 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-r-4 border-amber-500 rounded-xl">
+          <h4 class="font-bold text-slate-900 text-lg mb-2">תזכורת קריטית:</h4>
+          <p class="text-slate-800">
+            דברים לא צריכים להיות מושלמים כדי לעבוד! לא חייב להיות בריכוז שיא, לקיים שגרת בוקר אופטימלית, להתאמן 17 פעם בשבוע, להכפיל את מינון האטנט ולעשות שיטת פומודורו.
+            <br><br>
+            <strong>5 עד 10 הדקות הראשונות כשמתיישבים ללמוד הן הכי קריטיות עבורי – פשוט ״להיכנס לשוונג״.</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- Interactive Flashcard (פעלול מס' 1) -->
+      <section class="pt-6">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-100 text-indigo-800 font-bold text-lg">🃏</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">אוגוסט: כרטיסיות, אלמוג ו-Familiarity</h2>
+        </div>
+
+        <p>
+          איפשהו באוגוסט החלטתי שזה רעיון טוב שאירשם לקורס של אלמוג לקראת מבחן הידע. הכרטיסיות נראו מהממות, והסיפור של <em>Spaced Repetition</em> ו-<em>Active Learning</em> נשמע סופר חשוב.
+        </p>
+        <p class="mt-3">
+          נרשמתי. קרסתי מהר מאוד אחרי שהכרטיסייה על מחלת השינה האפריקאית גרמה לי לישון על האף...
+          הבנתי שאני חייב משהו שיעזור לי להגיע קודם כל לרמת <strong>Familiarity</strong> עם החומר. כלומר: לראות מילים כמו <em>ATP, אנתרופיה, אנזים, מיטוכונדריה, אשלגן, סידן</em> – מבלי להרגיש שאני עומד להתעלף.
+        </p>
+
+        <!-- Interactive 3D Flip Card Demo -->
+        <div class="my-8">
+          <div class="text-center mb-3">
+            <span class="inline-block text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
+              👆 פעלול אינטראקטיבי: לחצו על הכרטיסייה כדי להפוך אותה
+            </span>
+          </div>
+
+          <div id="flashcard" class="flip-card max-w-md mx-auto h-64 cursor-pointer select-none" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner relative w-full h-full text-center shadow-lg rounded-2xl">
+              
+              <!-- Front of card -->
+              <div class="flip-card-front absolute w-full h-full bg-white border-2 border-indigo-200 p-6 rounded-2xl flex flex-col justify-between items-center text-slate-800">
+                <div class="w-full flex justify-between items-center text-xs text-slate-400">
+                  <span>שאלה לדוגמה מתוך אלמוג</span>
+                  <span class="bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-bold">ביולוגיה מולקולרית</span>
+                </div>
+                <div class="my-auto">
+                  <span class="text-3xl mb-2 block">🪰</span>
+                  <h4 class="font-heading font-black text-xl text-slate-900">מחלת השינה האפריקאית</h4>
+                  <p class="text-sm text-slate-600 mt-2">מהו המנגנון המולקולרי המרכזי שבאמצעותו הטפיל (Trypanosoma) מתחמק ממערכת החיסון של המאכסן?</p>
+                </div>
+                <div class="text-xs text-indigo-500 font-semibold">לחצו כדי לראות את התשובה (וההסבר) ←</div>
+              </div>
+
+              <!-- Back of card -->
+              <div class="flip-card-back absolute w-full h-full bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white p-6 rounded-2xl flex flex-col justify-between items-center overflow-hidden">
+                <div class="w-full flex justify-between items-center text-xs text-indigo-300/80">
+                  <span>זעקת הסטודנט</span>
+                  <span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-2 py-0.5 rounded font-mono font-bold text-[10px] animate-pulse">S.O.S</span>
+                </div>
+                <div class="my-auto flex flex-col items-center justify-center text-center w-full select-none">
+                  <span class="text-4xl mb-2 animate-bounce">😱</span>
+                  <h3 class="font-heading font-black text-2xl sm:text-3xl tracking-wide rainbow-text">
+                    הצילווווווווווווו
+                  </h3>
+                </div>
+                <div class="text-xs text-indigo-300/70 hover:text-indigo-200 transition">לחצו שוב כדי לחזור לשאלה ↺</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-4">
+          אז השוויתי בין <em>רפואה בנשמה</em> לבין <em>ביוכימיה פלוס</em>. מחשבון הבדידים שעשיתי הראה שיש יותר שעות וידאו ברפואה בנשמה – אז יאללה, נרשמתי. 
+          וזה באמת הביא אותי לאן שרציתי: הבנתי את ה״חלק הארי״ של החומר (זה ששואלים עליו הכי הרבה בשחזורים), ואז הרגשתי שסוף סוף אפשר להתחיל ״לשנן״.
+        </p>
+      </section>
+
+      <!-- The Twist: 2027 Decision & The Reality -->
+      <section class="pt-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-bold text-lg">🎯</span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">הטוויסט: פאוזה מנהלתית והחלטה להקדים ל-2027</h2>
+        </div>
+
+        <p>
+          לא תכננתי לגשת לידע ב-2027. משיקולים כלכליים, עומס הלימודים לצד העבודה, ותוכניות להרחבת המשפחה – תכננתי להתחיל לימודים מאוחר יותר ולגשת לידע רק ב-2028.
+        </p>
+
+        <p class="mt-4">
+          אבל <a href="https://he.wikipedia.org/wiki/%D7%A0%D7%A1%D7%99%D7%9D_%D7%95%D7%A0%D7%A4%D7%9C%D7%90%D7%95%D7%AA_(%D7%A1%D7%A4%D7%A8)" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline underline-offset-2 hover:text-teal-900 font-medium">חבר יקר</a> גער בי להירשם כבר ל-2027 ו״מקסימום להצליח״. נרשמתי רק לאריאל (לא רציתי לבזבז אחת מ-3 ההרשמות המוגבלות לתל אביב). 
+          בסוף קיבלתי ציונים שפתחו את הדלת:
+        </p>
+
+        <div class="my-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-xs text-slate-500 font-semibold mb-1">מועד א' (ת"א)</div>
+            <div class="text-3xl font-heading font-black text-teal-600">333</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-xs text-slate-500 font-semibold mb-1">מועד א' (אריאל)</div>
+            <div class="text-3xl font-heading font-black text-teal-600">326</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-xs text-slate-500 font-semibold mb-1">מועד ב' (ת"א)</div>
+            <div class="text-3xl font-heading font-black text-slate-600">319</div>
+          </div>
+        </div>
+
+        <!-- Personal & Mental Cost -->
+        <p class="mt-6">
+          הסיבה אולי הכי גדולה מסט הסיבות שבגינן לא רציתי תחילה לגשת למבחן הידע ב2026 היא שאני תוך כדי צריך לג'נגל את קורסי הליבה ובנוסף זה שאני עובד במשרה דיי תובענית.
+        </p>
+
+        <p class="mt-4">
+          <strong class="text-slate-900 font-bold">בלי חארטות – המחיר האישי והנפשי:</strong><br>
+          היו ימים שקרסתי תחת הלחץ של קורסי הליבה, מבחן הידע והעבודה.
+        </p>
+
+        <p class="mt-4">
+          ברטרופרספקטיבה <strong class="text-slate-900 font-bold">אני לא ממליץ על זה לאף אחד</strong> ואני שמח שאני והזוגיות שלי יצאנו מזה בריאים נפשית ופיזית. המסלול הזה לוקח אותך רק ברמת ההכשרה 10 שנים קדימה – להתחיל שנה מוקדם יותר ולהסתכן בהתקף לב מלחץ ובשחיקה מיותרת זה רעיון פחות מוצלח. לעשות את הקורסים ולגשת למבחן בנחת אחר כך זה רעיון הרבה יותר שפוי, לדעתי :).
+        </p>
+      </section>
+
+      <!-- Interactive Timeline -->
+      <section id="interactive-timeline" class="pt-10 border-t border-slate-200">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-100 text-teal-800 font-bold text-lg">⏳</span>
+          <div>
+            <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">ציר הזמן של השנה</h2>
+            <p class="text-xs sm:text-sm text-slate-500">חלוקת השנה לפי סמסטרים ושלבי המיון</p>
+          </div>
+        </div>
+
+        <div class="relative border-r-2 border-teal-200 pr-6 mr-3 space-y-8">
+          
+          <!-- Summer Semester -->
+          <div class="relative group">
+            <div class="absolute -right-[31px] top-1.5 h-4 w-4 rounded-full bg-teal-500 border-4 border-white shadow"></div>
+            <div class="text-xs font-bold text-teal-600">יולי – אוגוסט 2025</div>
+            <h4 class="font-heading font-bold text-slate-900 text-lg">סמסטר קיץ</h4>
+            <p class="text-sm text-slate-600 mt-1">תחילת השלמת קורסי הליבה בהדסה (ביולוגיה מולקולרית ופיזיולוגיה) והשלמת בסיס בכימיה.</p>
+          </div>
+
+          <!-- Semester A -->
+          <div class="relative group">
+            <div class="absolute -right-[31px] top-1.5 h-4 w-4 rounded-full bg-teal-500 border-4 border-white shadow"></div>
+            <div class="text-xs font-bold text-teal-600">נובמבר 2025 – פברואר 2026</div>
+            <h4 class="font-heading font-bold text-slate-900 text-lg">סמסטר א׳</h4>
+            <p class="text-sm text-slate-600 mt-1">המשך לימוד קורסי הליבה במקביל לעבודה במשרה מלאה.</p>
+            <div class="mt-2 inline-block bg-slate-100 border border-slate-200 text-slate-700 text-xs sm:text-sm px-3 py-1.5 rounded-lg">
+              <strong class="text-slate-900">תוך כדי הסמסטר:</strong> למידה למבחן הידע (רפואה בנשמה ואלמוג) והחלטה לגשת למחזור הקבלה של 2027.
+            </div>
+          </div>
+
+          <!-- Semester B -->
+          <div class="relative group">
+            <div class="absolute -right-[31px] top-1.5 h-4 w-4 rounded-full bg-emerald-500 border-4 border-white shadow"></div>
+            <div class="text-xs font-bold text-emerald-600">מרץ – יולי 2026</div>
+            <h4 class="font-heading font-bold text-slate-900 text-lg">סמסטר ב׳</h4>
+            <p class="text-sm text-slate-600 mt-1">המשך וסיום קורסי הליבה.</p>
+            <div class="mt-2 inline-block bg-emerald-50/80 border border-emerald-200 text-emerald-950 text-xs sm:text-sm px-3 py-1.5 rounded-lg">
+              <strong class="text-emerald-950">תוך כדי הסמסטר:</strong> מבחני הידע ← מבחנים אישיותיים ← קבלה לרפואה באריאל.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- The Juice / Tactical Section -->
+      <section id="the-juice" class="pt-10 border-t border-slate-200 space-y-6">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-bold text-lg">🔥</span>
+          <div>
+            <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900">הג'וס: טיפים וטקטיקה</h2>
+            <p class="text-xs sm:text-sm text-slate-500">הכלים, השיטות והדברים שתכלס עבדו לי</p>
+          </div>
+        </div>
+
+        <!-- The Power of Almog as an Index -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-100 text-purple-800 font-bold text-base">🔍</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">הכלי המנצח: אלמוג כ״אינדקס״</h3>
+          </div>
+
+          <p>
+            בחלקים היותר מאוחרים של הלמידה ניסיתי לחזור לכרטס עם אלמוג – לאו דווקא דרך האלגוריתם, אלא בטריק שעבד לי מדהים:
+            חיפוש של שלושה רווחים (״&nbsp;&nbsp;&nbsp;״) בפרק ספציפי בספר כדי לכרטס את כל החבילה בבת אחת.
+          </p>
+
+          <p class="mt-4">
+            הדבר שהכי עזר לי היה שימוש באלמוג כ-<strong>אינדקס</strong>: מקלידים מילה ומגיעים לכרטיסיות שעברו וריפיקציה קפדנית, כולל סיכומים מעולים בתחתית.
+            אם יש מישהו שמגיע לו שבח בכל התהליך הזה – זה לאלמוג ולצוות האתר. הכלי הכי מתקדם שיש לסטודנטים ב-4 שנתי בארץ.
+          </p>
+        </div>
+
+        <!-- Active MCQ Practice Strategy -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-100 text-teal-800 font-bold text-base">📝</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">תרגול שאלות אמריקאיות: להפוך את זה לאקטיבי</h3>
+          </div>
+
+          <p>
+            עשיתי מלא מלא מלא שאלות. לקחתי את כל השאלות שיכלתי לפי פרק בספר באלמוג ולפי שיעור ברפואה בנשמה ועברתי את כל החומר ככה ב2 הפלטפורמות ופתרתי את כל השאלות שהצלחתי לשים עליהן את הידיים. מכיוון שמבחן הידע הוא מבחן אמריקאי, חשוב מאוד מאוד מאוד לדעתי לתרגל שאלות אמריקאיות. זה תהליך שהוא יכול להיות מאוד אקטיבי, בדגש על ה<strong class="text-slate-900 font-bold">יכול</strong>. אם סתם מסמנים בלי לחשוב זה לא עוזר. השיטה שלי היא כזאת:
+          </p>
+
+          <ul class="mt-4 space-y-4">
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-600 font-bold mt-1">•</span>
+              <div>
+                <strong class="text-slate-900 font-bold">בשאלות ״אינדיקטיביות״</strong> – כאלו ששואלות שאלה שאתה <em>might as well</em> לענות עליה כשאלה פתוחה פחות או יותר, הייתי מנסה לעשות בדיוק את זה. לנסות להבין את כוונת המשורר ולהבין מה התשובה. זה עזר לי להגיע למסיחים בלי <em>bias</em>, כי לעיתים המסיחים בשאלות גורמים לך למשוך את השיערות מעצבים. זה כמובן לא עובד על כל השאלות אבל לאלו שכן, שווה לנסות.
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-teal-600 font-bold mt-1">•</span>
+              <div>
+                <strong class="text-slate-900 font-bold">בשאלות שיש כל מיני ״שינויים״ של דברים</strong> – נגיד ״רמה גבוהה״ או ״ריכוז נמוך״ ודברים כאלו, הייתי מדגיש לעצמי עם סימנים של <code class="font-mono font-bold bg-emerald-50 border border-emerald-200 text-emerald-700 px-1.5 py-0.5 rounded">+</code> ו-<code class="font-mono font-bold bg-rose-50 border border-rose-200 text-rose-700 px-1.5 py-0.5 rounded">-</code> מעל ה״גבוה״ או ה״נמוך״ או נגיד <code class="font-mono font-bold bg-slate-100 border border-slate-200 text-slate-700 px-1.5 py-0.5 rounded">=</code> עבור ״זהה״. מאוד מאוד עוזר בשאלות מציקות בפיזיולוגיה.
+              </div>
+            </li>
+          </ul>
+
+          <p class="mt-5 pt-4 border-t border-slate-100 text-sm sm:text-base text-slate-600">
+            לקראת מועד ב׳ נרשמתי גם ל-<strong class="text-slate-900 font-bold">MedExams</strong> – אחלה פלטפורמה לשאלות של הידע עם הסברים מעולים (וזה שהציון במועד ב׳ היה פחות טוב זה לגמרי עליי).
+          </p>
+        </div>
+
+        <!-- Memorization vs. Understanding -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-amber-800 font-bold text-base">🧠</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">״שינון״ לעומת ״הבנה״</h3>
+          </div>
+
+          <p>
+            אני שמתי לעצמי מטרה והבטחה לא להשאיר לידי מפלצת ה״שינון״ כל דבר שאני יכול ״להבין״ אותו.
+          </p>
+
+          <p>
+            אני אתן דוגמה. אם לוקחים את כל החומרים שמשפעלים ומדכאים כל מיני תגובות בכל המטבוליזם בביוכימיה, בעיקר מקבלים דיכאון. לא שזה לא אפשרי, אבל פרקטית, כשתרגלתי שאלות, שמתי לב שלא מפילים בין מסיחים שהם ״הגיוניים״. אני אתן דוגמה:
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 p-4 sm:p-5 rounded-xl">
+            <p>
+              נגיד תגובה 10 בגליקוליזה, האנזים היקר והאהוב <strong class="text-slate-900 font-bold">פירובט קינאז</strong>, לוקח PEP שמת מת מת להתפרק לפירובט (שגם לו יש את ה-2 צורות שלו לדעתי... אף פעם לא זכרתי את זה) ו...מפרק אותו לפירובט. יש לתגובה הזו מלא חומרים שמשפעלים אותה, Aלנין, ATP, FFA, אצטיל-קוA ובקיצור כל ה-Aים.
+            </p>
+          </div>
+
+          <div class="bg-amber-50/70 border-r-4 border-amber-500 p-4 sm:p-5 rounded-xl space-y-2">
+            <p class="font-bold text-slate-900">
+              הרגשתם משהו מוזר? אם אתם שוחים בחומר אולי :) וגם אם לא אז לא נורא:
+            </p>
+            <p>
+              תזכרו חברים שגליקוליזה מתרחשת במצב שובע בכבד ובמצב אנרגטי נמוך בשאר הרקמות.
+            </p>
+            <p>
+              נתתי לכם פה רשימה של אינדיקטורים של <strong class="text-slate-900 font-bold">אנרגיה גבוהה</strong>: ATP, FFA, אצטיל-קוA (שיוצא מהמיטוכונדריה כציטראט ומתפרק חזרה בציטוזול כשמעגל קרבס רווי, או מצטבר מפירוק שומנים), Aלנין שבריכוז פירובט גבוה יהפוך ל-Aלנין...
+            </p>
+            <p class="font-bold text-amber-950">
+              בקיצור אלו דווקא יעכבו אותה.
+            </p>
+          </div>
+
+          <div>
+            <p class="font-semibold text-slate-900 mb-2">נעבור על שארית החומרים שקשורים לתגובה הזו:</p>
+            <ul class="space-y-1.5 pr-4 list-disc text-slate-700">
+              <li><strong class="text-slate-900 font-bold">F 1,6 BP</strong> שמשפעל אלוסטרית כחלק מ״משוב חיובי״ של הגליקוליזה משלבים מוקדמים.</li>
+              <li><strong class="text-slate-900 font-bold">זרחון של PKA</strong> (רק בכבד לדעתי) שמעכב ו<strong class="text-slate-900 font-bold">דה-זרחון של PP כלשהו</strong> (גם רק בכבד לדעתי).</li>
+            </ul>
+          </div>
+
+          <div class="pt-2">
+            <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">מה אני בא להגיד פה?</h4>
+            <p class="mb-4">
+              ברוב השאלות שאני ראיתי לא ישימו מסיחים שהשם ישמור לשאלה <strong class="text-slate-900 font-bold">״מה ישפעל את פירובט קינאז?״</strong>:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+              <!-- Unrealistic Distractors -->
+              <div class="bg-rose-50/50 border border-rose-200 p-4 rounded-xl">
+                <div class="text-xs font-bold text-rose-700 mb-2">❌ מסיחים מתקטננים (לרוב לא תראו):</div>
+                <ol class="list-decimal list-inside space-y-1.5 text-sm sm:text-base text-slate-700">
+                  <li>F 1,6 BP (רק בכבד)</li>
+                  <li>גלוקוז-6-פוספט</li>
+                  <li>אלנין (רק בכבד)</li>
+                  <li>F 1,6 BP (רק בשריר)</li>
+                </ol>
+              </div>
+
+              <!-- Realistic Distractors -->
+              <div class="bg-emerald-50/50 border border-emerald-200 p-4 rounded-xl">
+                <div class="text-xs font-bold text-emerald-800 mb-2">✅ אלא המסיחים יהיו יותר בכיוון של:</div>
+                <ol class="list-decimal list-inside space-y-1.5 text-sm sm:text-base text-slate-700">
+                  <li class="font-bold text-emerald-900 bg-emerald-100/70 px-2 py-0.5 rounded inline-block w-full">F 1,6 BP</li>
+                  <li>ריכוז ATP גבוה</li>
+                  <li>אלנין</li>
+                  <li>אצטיל-קוA</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            ואז להבין מה כל מולקולה ״מייצגת״ ומה המשמעות שלה ומתי היא בריכוז גבוה או נוצרת וכ׳ מספיק כדי לענות על השאלה.
+          </p>
+
+          <p class="text-slate-600 italic">
+            וכמובן אפשר פשוט לשנן את הכל ולשכוח את מה שאמרתי :)
+          </p>
+
+          <p>
+            אבל פה נתתי אנקדוטה שהיא אולי אפילו יחסית קלה לשינון, בתכל׳ס על פני כמה חודשים הכל אפשרי, אבל כשמותחים את זה על כל החומר, לדעתי – <strong class="text-slate-900 font-bold">עדיף לנסות להבין מאשר לשנן</strong>, את מה שאפשר להתחמק איתו לפחות :) אני ממליץ לפעול איך שמרגישים ולעשות לעצמכם הרבה קליברציה עם סימולציות ושאלות. בסוף אם אתם מבינים מה מדברים איתכם בשאלות – זה אינדיקטור טוב, ואם לא – תשקלו איך לפעול בהמשך.
+          </p>
+        </div>
+
+        <!-- Chapter 19 Cell Biology & Almog Translations -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100 text-rose-800 font-bold text-base">📖</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">פרק 19 בביותא – התרגומים של אלמוג</h3>
+          </div>
+
+          <p>
+            אני מקדיש סקשן שלם לפרק הארור הזה. אני לא יודע מאיפה להתחיל בכנות, אני חושב שהדרך שבה הוא מוצג בספר היא מזעזעת בעיניי, ושהדבר היחיד שעזר לי פה זה לפתור מלא שאלות ולשנן בלי סוף עד שבסוף דברים קצת התחברו לי, ואז שואלים אותי על <strong class="text-slate-900 font-bold">דקורין</strong> במועד א׳ שה׳ <code class="font-mono text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded">@$#@*#</code> אותם.
+          </p>
+
+          <p>
+            בכנות הכלי שהכי עזר לי פה זה <strong class="text-slate-900 font-bold">התרגום של אלמוג</strong> – זה כלי עוצמתי, שמוריד את מחסום השפה, קטן ככל שיהיה (בסוף זה תחום חדש לרוב האנשים, וגם אם אני מבין אנגלית ממש טוב זה עדיין יותר יעיל לדעתי, ודאי מפאת איכות התרגום הנפלאה).
+          </p>
+
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+            <p>
+              ויותר מזה – <strong class="text-slate-900 font-bold">בסוף הפרק יש תמיד מילון של כל השחקנים בפרק.</strong> למינה בזאלית שמאזלית, דקורינים, קולגנים, אלסטינים, <em>you name it</em> – זה שם.
+            </p>
+          </div>
+        </div>
+
+        <!-- YouTube Videos - Drill Down -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-red-100 text-red-700 font-bold text-base">▶️</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">סרטונים ביוטיוב – דריל דאון</h3>
+          </div>
+
+          <p>
+            את זה הבנתי מאוחר מידי לדעתי. כשיש לכם דברים שלא מתחברים – <strong class="text-slate-900 font-bold">קפצו ליוטיוב, לא להיבהל</strong>, צפו בסרטון או שניים (או שכותבים שתיים?).
+          </p>
+
+          <p>
+            נגיד ביחס לבועיות שזזות בתא בין הממברנה ל-ER לגולג׳י זה ממש יכול לעזור, וחשמל שזורם בסינפסות, חומרים שעוברים פארה או טראנס צלולרית, או כל דבר אחר שאתם תידפקו עליו.
+          </p>
+        </div>
+
+        <!-- Feynman Technique - Self-Learning -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-100 text-indigo-800 font-bold text-base">🗣️</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">שיטת פיינמן – ״לימוד עצמי״</h3>
+          </div>
+
+          <p>
+            מתישהו אני חושב שנתקלתי באיזה משפט כזה ואני דיי בטוח שזה קשור לשיטת פיינמן (מוזמנים לחקור קצת) וגם אם זה לא קשור הנה המשפט שאני מאמין בו: <strong class="text-slate-900 font-bold">״אם אתה לא יודע להסביר משהו בקוהרנטיות ובפשטות לילד בן 6, כנראה שאתה לא מבין אותו״</strong>, ולמטרות יותר פרקטיות אפשר להרחיב את המשפט ל״מבין אותו מספיק כדי שתוכל להשתמש בו בצורות חדשות ומגוונות שהן לא שחור על גבי לבן מה שאתה מדקלם מהמקור שלמדת ממנו״.
+          </p>
+
+          <p>
+            כדי שדברים יחלחלו חברים, אין מנוס – <strong class="text-slate-900 font-bold">כדאי וצריך לשבור את הראש.</strong> אם זה קל זה לא אפקטיבי (ככל הנראה, ושוב – לדעתי).
+          </p>
+
+          <p>
+            השיטה הספציפית שהכי הייתי אוהב לממש בה את העיקרון הזה, היא <em>brain dumping</em> לתוך הצ׳אט, לפעמים עם רפרנסים אבל בתכל׳ס מהניסיון שלי (לפחות עם Gemini, ה-AI שאני הכי מחבב ביולוגית והאמת בכללי) – לא באמת צריך רפרנסים.
+            <span class="block mt-1.5 text-sm text-slate-500 italic">
+              (האמת שזו בדיוק השיטה שיצרתי את הבלוג הזה איתה – <em>brain dump</em> לצ׳אט ורק ביקשתי שיסדר את זה יפה באתר :))
+            </span>
+          </p>
+
+          <div class="bg-indigo-50/70 border-r-4 border-indigo-500 p-4 sm:p-5 rounded-xl">
+            <div class="text-xs font-bold text-indigo-700 mb-1.5">💬 הייתי נגיד דופק לו פרומפט:</div>
+            <p class="text-slate-800 italic">
+              ״תקשיב אני עכשיו הולך לספר לך את כל מה שאני יודע על מחזור התא בקורס ביותא. CDKים, שלבים שונים, הכפלה, CKIים, MAD2, APCC, הכל. אני אספר לך את הכל לפי הסדר שאני זוכר ומבין, תתקן אותי ותוסיף פרטים שאולי פספסתי״
+            </p>
+          </div>
+
+          <p>
+            ומשם ממשיך לזמר את כל מה שאני יודע על שלב G1 ו-S ו-G2 וכל דבר שאני נזכר בו ורושם ורושם ולפעמים זה היה לוקח לי גם חצי שעה ושעה לכתוב פרומפט. וכמובן שאף פעם לא שכחתי לציין, להסביר ולפאר על החלבון האהוב עליי – <strong class="text-slate-900 font-bold">רטינובלסטומה הצפרדעון הזו</strong> (אולי כי הוא תמיד ממש הזכיר לי את החתול שלי צ׳יקמוק):
+          </p>
+
+          <div class="my-5 grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch bg-slate-50 border border-slate-200 p-4 rounded-2xl">
+            <figure class="flex flex-col items-center justify-between">
+              <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-xs flex items-center justify-center h-60 w-full">
+                <img src="rb-frog.png" alt="חלבון רטינובלסטומה מזורחן" class="max-h-44 w-auto object-contain" loading="lazy">
+              </div>
+              <figcaption class="text-xs font-semibold text-slate-600 mt-2">רטינובלסטומה (Rb) מזורחן 🐸</figcaption>
+            </figure>
+
+            <figure class="flex flex-col items-center justify-between">
+              <div class="bg-white border border-slate-200 p-2 rounded-xl shadow-xs flex items-center justify-center h-60 w-full">
+                <img src="chikmuk.jpg" alt="צ׳יקמוק החתול" class="max-h-full max-w-full object-contain rounded-lg" loading="lazy">
+              </div>
+              <figcaption class="text-xs font-semibold text-slate-600 mt-2">צ׳יקמוק – מצאו את ההבדלים 🐱</figcaption>
+            </figure>
+          </div>
+
+          <div class="pt-1">
+            <h4 class="font-heading font-bold text-lg text-slate-900 mb-2">ומה עשיתי פה?</h4>
+            <p>
+              שלפתי או כפי שאני מעדיף לספר לעצמי <strong class="text-slate-900 font-bold">״המצאתי״ מידע מהראש</strong>. זה מאוד שונה מלקרוא משהו ולהבין אותו, וגם מלקרוא שאלה ולזכור ולהבין את האלמנטים שהיא מערבת בתוכה. זה ממש כמו ליצור יש מאין לדעתי ובגלל זה אני אוהב את המילה ״להמציא״. אני לא מספיק פילוסוף כדי להסביר בדיוק למה זה תהליך כל כך יותר טוב לדעתי משאר הדברים שאפשר לעשות (בכנות אם יכולים להסביר או ללמד ככה את כל החומר כנראה שתצליחו בכל השאלות לדעתי) – אבל כשיש דברים שאתם מוצאים לנכון למסגר כסיפורים (הרבה פעמים בביותא ובמולקולרית, והאמת שגם פחות או יותר כל המטבוליזם בביוכימיה) – אני מאוד ממליץ להשתמש בזה.
+            </p>
+          </div>
+
+          <div class="bg-slate-100 border border-slate-200 p-4 rounded-xl text-slate-900 font-bold text-center">
+            כשאשכרה מנסים לעשות את זה, הפערים האמיתיים נחשפים – אין אפשרות אחרת.
+          </div>
+        </div>
+
+        <!-- Shortcuts & Mnemonics -->
+        <div class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-100 text-purple-800 font-bold text-base">⚡</span>
+            <h3 class="font-heading font-black text-xl sm:text-2xl text-slate-900">״קיצורים״</h3>
+          </div>
+
+          <p>
+            חברים יש כל מיני נקודות בחומר שהן כל כך מזעזעות שאתם צריכים לגרום לעצמכם שזה יהיה <strong class="text-slate-900 font-bold">בלתי-אפשרי שתפקששו את זה</strong>. אני אתן דוגמה – לזכור את האנטיביוטיקות השונות במולקולרית.
+          </p>
+
+          <p class="font-bold text-slate-900">
+            הטבלה הזו הרסה לי את הבריאות בכנות:
+          </p>
+
+          <figure class="my-4 bg-slate-50 border border-slate-200 p-3 rounded-2xl">
+            <img src="antibiotics-table.png" alt="טבלת מעכבי סינתזת חלבון או רנ״א במולקולרית" class="w-full h-auto rounded-xl border border-slate-200/80 shadow-xs" loading="lazy">
+          </figure>
+
+          <p>
+            אחרי תקופה מסוימת נתקלתי בשאלות לגביה וראיתי שבעיקר שואלים ״איזו אנטיביוטיקה תשפיע על בקטריות?״ ואז מביאים 3 שמשפיעות על אאוקריוטים ו-1 על בקטריות.
+          </p>
+
+          <p>
+            ובקיצור, זה פיקס אותי על החלוקה הבאה:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-3">
+            <div class="bg-purple-50/70 border border-purple-200 p-3 rounded-xl text-center font-bold text-purple-950 text-sm sm:text-base">
+              🦠 רק בקטריות
+            </div>
+            <div class="bg-purple-50/70 border border-purple-200 p-3 rounded-xl text-center font-bold text-purple-950 text-sm sm:text-base">
+              🧬 רק אאוקריוטים
+            </div>
+            <div class="bg-purple-50/70 border border-purple-200 p-3 rounded-xl text-center font-bold text-purple-950 text-sm sm:text-base">
+              🔄 גם וגם
+            </div>
+          </div>
+
+          <p class="text-sm sm:text-base text-slate-600 italic">
+            ושימו לב שיש גם כמה שם שמופיעות בטקסט מסביב לטבלה הארורה.
+          </p>
+
+          <p>
+            החרטוט שהשתמשתי בו, שבשום פנים ואופן לא מאפשר לי לטעות בשאלה שקשורה לאנטיביוטיקות הללו, זה המשפטים הבאים:
+          </p>
+
+          <div class="bg-slate-50 border-r-4 border-purple-500 p-4 sm:p-5 rounded-xl space-y-2.5 font-bold text-purple-950">
+            <p>
+              ״טטרה אריתמטית התלבשה ספקטיקל ולקחה סטרפטיקול פעמיים משהו כולרה״
+            </p>
+            <p>
+              ״חריף האקטין האמיתי״
+            </p>
+            <p>
+              ״הארי אני ציקלופ״
+            </p>
+          </div>
+
+          <p>
+            ואת <strong class="text-slate-900 font-bold">פורומיצין ואקטינומיצין D</strong> הייתי זוכר בנפרד שהן בקטגוריה של ״גם וגם״ – תוקפות גם באאוקריוטים וגם בבקטריות (כשפורומיצין תוקפת את הריבוזום, ואקטינומיצין D תוקפת את ה-RNA Pol).
+          </p>
+
+          <div class="bg-purple-50/60 border border-purple-200/80 p-4 rounded-xl text-slate-800 text-sm sm:text-base">
+            <strong class="text-purple-950 font-bold block mb-1">מה לעזאזל כתבתי כאן?</strong>
+            תעתיקו את הטבלה ואת החרטוטים שכתבתי כאן לצ׳אט האהוב עליכם והוא כבר יסביר לכם 😉
+          </div>
+        </div>
+
+        <!-- Next Tactical Parts Teaser / Outro -->
+        <div class="p-8 bg-slate-900 text-white rounded-3xl text-center">
+          <h3 class="font-heading font-black text-2xl mb-2">עוד ג׳וס בדרך... 🎃</h3>
+          <p class="text-slate-300 max-w-lg mx-auto text-sm sm:text-base leading-relaxed mb-6">
+            המשך הפירוט הטקטי (אסטרטגיה מפורטת למבחני הידע, תחנות המס״ר ואיך שורדים את זה מנטלית) עובד ונכתב ברגעים אלו.
+          </p>
+          <div class="inline-block border border-slate-700 bg-slate-800/80 px-4 py-2 rounded-xl text-xs text-slate-400">
+            נכתב באהבה ע״י אביחי | מבוסס על מסע אמיתי
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-20 border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+    <div class="max-w-3xl mx-auto px-4">
+      <p>© 2026 יומן דרך – אביחי. כל הזכויות שמורות.</p>
+      <p class="mt-1 text-slate-400">מופעל באמצעות GitHub Pages 🚀</p>
+    </div>
+  </footer>
+
+  <!-- Script for Reading Progress Bar & Custom Smooth Scroll -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Custom slow ease-in-out scroll to #the-juice
+    document.querySelectorAll('a[href="#the-juice"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.getElementById('the-juice');
+        if (!target) return;
+
+        const htmlEl = document.documentElement;
+        const prevScrollBehavior = htmlEl.style.scrollBehavior;
+        htmlEl.style.scrollBehavior = 'auto';
+
+        const startY = window.pageYOffset;
+        const targetY = Math.min(
+          target.getBoundingClientRect().top + startY - 24,
+          document.documentElement.scrollHeight - window.innerHeight
+        );
+        const distance = targetY - startY;
+        const duration = 1500; // ms
+        let startTime = null;
+
+        // Cubic ease-in-out: starts slow, accelerates in middle, decelerates smoothly at the end
+        function easeInOutCubic(t) {
+          return t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function step(currentTime) {
+          if (!startTime) startTime = currentTime;
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeInOutCubic(progress);
+
+          window.scrollTo(0, startY + distance * eased);
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            htmlEl.style.scrollBehavior = prevScrollBehavior;
+          }
+        }
+
+        requestAnimationFrame(step);
+      });
+    });
+  </script>
+
+</body>
+</html>
